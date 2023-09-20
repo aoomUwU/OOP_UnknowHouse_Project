@@ -26,16 +26,34 @@
         width: calc(75% + 14.5px);
         float: right;
       }
+
+      #popup {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        border: 1px solid #000;
+        padding: 20px;
+        z-index: 1;
+        width: 70%;
+      }
     </style>
   </head>
   <body>
     <h1><center>Unknow House</center></h1>
-
+    <div id="popup">
+      <center>
+        <center><a style="font-size: large;">死</a></center>
+      <a>D E A T H</a>
+      <p>text</p>
+      <button onclick="reloadPage()"> reset </button>
+      </center>
+    </div>
     <div id="playerDetail"></div>
     <div id="resultBox"></div>
-
     <input type="text" id="input" />
-
-  <script src="S.js"></script>
-</body>
+    <script src="S.js"></script>
+  </body>
 </html>
