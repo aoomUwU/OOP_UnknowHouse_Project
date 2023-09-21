@@ -164,6 +164,9 @@ class Room {
     const updatedDescription = (this.#description).replace(item.getName(), "ความว่างเปล่า");
     this.#description = updatedDescription;
   }
+  enter() {
+    showtext(this.#description);
+  }
 }
 class Holy extends Room {
   #deadDescription
@@ -175,9 +178,9 @@ class Holy extends Room {
   }
   enter() {
     let enter = false;
-      for (const item of player.getInventory()) {
-        if (item.getId() === this.#req) {
-          enter = true;
+      for (const item of player.getInventory()) { //check item ที่ตรงตามที่ห้องต้องการ(req)
+        if (item.getId() === this.#req) { 
+          enter = true; 
         }
       }
       if (!enter) {
@@ -305,6 +308,7 @@ function playGame() {
     }
   });
 }
+
 let noteRoom0 = new Object("โน๊ต", 1, "ช่วงนี้สบายดีรึเปล่า? ไม่เห็นติดต่อมาเลยโทรหาก็ไม่รับสายเลย แม่ซื้อกับข้าวเอาไว้ในตู้เย็นนะแม่เป็นห่วงลูกนะดูแลตัวเองดีๆนะ  -จากแม่");
 let refrigerator = new Object("ตู้เย็น", 12,"ตู้เย็นสีเทา");
 let amulet = new Item("เครื่องราง", 13, "เครื่องรางเเวววาว");
