@@ -239,18 +239,18 @@ function getRoom(roomid) { //หาห้องใน array rooms ที่ม�
   const room = rooms.find((room) => room.getId() === roomid);
   return room;
 }
-function getObject(input, roomid) {
+function getObject(input, roomid) { 
   const objects = getRoom(roomid).getObjects();
   const items = getRoom(roomid).getItems();
   
   let object = objects.find((obj) => obj.getName() === input || obj.getId() === input);
 
-  if (!object) {
-    const doorInput = "ประตู" + input;
+  if (!object) { // ถ้า object = undefined 
+    const doorInput = "ประตู" + input; // เพิ่มคำว่า ประตู ให้ input
     object = objects.find((obj) => obj.getName() === doorInput || obj.getId() === doorInput);
   }
 
-  if (!object) {
+  if (!object) { // ถ้า object ยังจะ= undefined ให้เอา input ไปหาใน array items
     object = items.find((obj) => obj.getName() === input || obj.getId() === input);
   }
 
@@ -270,34 +270,34 @@ function playGame() {
       inputElement.value = "";
       console.log(input);
       let room = getRoom(roomid);
-      if (room.getDescription().includes(input) || input.includes("ออก")) {
+      if (room.getDescription().includes(input) || input.includes("ออก")) { // ตรวจ inputมีอยู่ในDescriptionของroom หรือ inputมีคำว่า ออก
         let obj;
 
-        if (input.includes("ออก")) {
-          obj = getObject(("ประตู"+room.getName()), roomid);
+        if (input.includes("ออก")) {// ตรวจ inputมีคำว่า ออก
+          obj = getObject(("ประตู"+room.getName()), roomid); 
         } else {
           obj = getObject(input, roomid);
         }
         console.log(obj);
 
-        if (obj instanceof Door) {
+        if (obj instanceof Door) {// ถ้า obj มี class เป็น Door
           
           if (obj.next(roomid) === "มันล็อคอยู่") {
             showtext("มันล็อคอยู่");
           } else {
             roomid = obj.next(roomid);
-            if (getRoom(roomid) instanceof Holy || getRoom(roomid) instanceof End) {
+            if (getRoom(roomid) instanceof Holy || getRoom(roomid) instanceof End) { // ถ้า room มี class เป็น End หรือ Holy
               getRoom(roomid).enter();
             }
             player.setStamina(player.getStamina() - 1);
             showtext(getRoom(roomid).getDescription());
           }
           
-        } else if (obj instanceof Item) {
+        } else if (obj instanceof Item) { // ถ้า obj มี class เป็น Item
           showtext(obj.getDescription());
           showtext("คุณหยิบ" + obj.getName());
-          player.addInventory(obj);
-          room.delItems(obj);
+          player.addInventory(obj); // ถ้า เพิ่ม item ไปยัง inventory
+          room.delItems(obj); // ถ้า ลบ item จาก ห้อง
 
         } else {
           showtext(obj.getDescription());
